@@ -11,18 +11,13 @@ This project is implementation for the following topics related to technologies 
 4. In built views of PasswordChangeDoneView, PasswordChangeView, PasswordResetCompleteView, PasswordResetConfirmView, PasswordResetView, PasswordResetCompleteView
 5. Build Custom Templates for These Inbuilt Views
 
--Implemented Crud Operations with Django Forms
-
-1. build crud operation create, update, delete, read function views
-2. build templates for handling it
-3. Created Django forms
-
 -Implemented Chat App using Django Channels/Redis/Tortoise ORM
 
 1. build custom chat groups
 2. as soon as a user register in the app, a signal is fired to creat a room with every user
-3. Used simple Javascript to connect to Django Channels and perform these asynchronous chatting system
-
+3. Used simple Javascript/Django Channels/Redis to connect to Django Channels and perform these asynchronous chatting system
+4. Connected Tortoise ORM with a SQlite Database for asynchronous data
+5. User can delete their messages.
 Similarly, we can build Chat Groups
 
 -Deployed on Heroku using Daphne, Heroku Postgres
@@ -213,13 +208,12 @@ Configuring Django App for Heroku
 
 [![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
 [![Django](https://img.shields.io/badge/Django-092E20?style=for-the-badge&logo=django&logoColor=white)](https://www.djangoproject.com/)
-[![Jquery](https://img.shields.io/badge/jQuery-0769AD?style=for-the-badge&logo=jquery&logoColor=white)](https://jquery.com/)
-[![GraphQL](https://img.shields.io/badge/-GraphQL-E10098?style=for-the-badge&logo=graphql&logoColor=white)](https://graphql.org/)
-[![DjangoREST](https://img.shields.io/badge/DJANGO-REST-ff1709?style=for-the-badge&logo=django&logoColor=white&color=ff1709&labelColor=gray)](https://www.django-rest-framework.org/)
 [![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white)](https://developer.mozilla.org/en-US/docs/Glossary/HTML5)
 [![CSS3](https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/CSS)
 [![Bootstrap](https://img.shields.io/badge/Bootstrap-563D7C?style=for-the-badge&logo=bootstrap&logoColor=white)](https://getbootstrap.com/)
-
+[![Redis](https://img.shields.io/badge/redis-%23DD0031.svg?style=for-the-badge&logo=redis&logoColor=white)](https://redis.io/docs/)
+[![SQlite](https://img.shields.io/badge/SQLite-07405E?style=for-the-badge&logo=sqlite&logoColor=white)](https://www.sqlite.org/docs.html)
+[![Postgres](https://img.shields.io/badge/postgres-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white)](https://www.postgresql.org/docs/)
 
 ## Environment Variables
 
