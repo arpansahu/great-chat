@@ -18,6 +18,8 @@ This project is implementation for the following topics related to technologies 
 3. Used simple Javascript/Django Channels/Redis to connect to Django Channels and perform these asynchronous chatting system
 4. Connected Tortoise ORM with a SQlite Database for asynchronous data
 5. User can delete their messages.
+6. Used Postgres for Django Models
+
 Similarly, we can build Chat Groups
 
 -Deployed on Heroku using Daphne, Heroku Postgres
