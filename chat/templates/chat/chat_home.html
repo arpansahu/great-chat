@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+    <div class="row" style="padding: 100px" >
+
+        <div class="col-sm-4 offset-md-4">
+            <h4 class="text-centre alert alert-info">What chat room would you like to enter?</h4>
+
+                <input id="room-name-input" class="form-control" type="text"><br>
+                <input id="room-name-submit" class="btn btn-primary form-control" type="button" value="Enter">
+        </div>
+    </div>
+
+
+
+
+    <script>
+        document.querySelector('#room-name-input').focus();
+        document.querySelector('#room-name-input').onkeyup = function(e) {
+            if (e.keyCode === 13) {  // enter, return
+                document.querySelector('#room-name-submit').click();
+            }
+        };
+
+        document.querySelector('#room-name-submit').onclick = function(e) {
+            var roomName = document.querySelector('#room-name-input').value;
+            window.location.pathname = '/chat/' + roomName + '/';
+        };
+    </script>
+
+{% endblock content %}

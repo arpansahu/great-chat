@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+    <h1 style="text-align:center;padding-left: 100px" >Entire Project Home</h1>
+    <div class="row" style="padding: 100px" >
+        {% if request.user.is_authenticated %}
+            <p style="align-content: center">
+                <a class="btn btn-outline-primary" href="{% url 'index' %}">CHAT</a> |
+            </p>
+
+        {% else %}
+            <p>
+                <a class="btn btn-outline-primary" href="{% url 'login' %}">Login to View The Entire Home Page</a>
+            </p>
+        {% endif %}
+    </div>
+
+
+{% endblock %}

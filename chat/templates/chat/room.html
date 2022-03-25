@@ -1,0 +1,232 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <style>
+        #delete-log
+        {
+            color: black;
+            position: absolute;
+            right: 10%;
+            top: 67px;
+            margin: 0 0 0 -1px;
+        }
+
+        #stlist
+        {
+            list-style: none;
+            color: green;
+            position: absolute;
+            left: 200px;
+            top: 13px;
+            margin: 0 0 0 -1px;
+        }
+
+    </style>
+
+    <div class="row" style="padding: 100px" >
+
+        <div class="col-sm-4 offset-md-"    >
+            <h4 class="text-centre alert alert-info">Message To</h4>
+
+            {% if all_users %}
+                <table class="table table-hover" id="itemTable">
+                <col>
+                  <thead>
+                    <tr>
+                      <th scope="col">Name</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for user in all_users %}
+                    <tr>
+                      <th><a href="{% url 'room_redirects' user.group_chat_no %}" >{{ user.username }}</a></th>
+                    </tr>
+                  {% endfor %}
+                  </tbody>
+                </table>
+            {% else %}
+                <h4 class="text-center alert alert-warning">No Items</h4>
+            {% endif %}
+
+        </div>
+
+        <div  class="col-sm-7 offset-1">
+            <h4  class="text-centre alert alert-info">{{ chat_name }}
+                <!-- notifications -->
+                    <ul id="stlist" >
+                    {% comment %} {% for user in users %}
+                    <!-- NOTE: We escape HTML to prevent XSS attacks. -->
+                    <li id="li" data-username="{{ user.username }}">
+                        {{ user.username }}: {{ user.status|default:'Offline' }}
+                    </li>
+                    {% endfor %} {% endcomment %}
+                    </ul>
+                <!-- /notifications -->
+            </h4>
+
+            <div class="form-group purple-border">
+                <textarea class="form-control"  readonly id="chat-log" cols="50" rows="15"></textarea><br>
+            </div>
+            <div id="delete-log"></div>
+
+            <input id="chat-message-input" type="text" size="58" class="form-control"><br/>
+            <input id="chat-message-submit" type="button" value="Send" class="btn btn-primary form-control" >
+{#            <a href="{% url 'delete_all_messages' int_group_id %}" class="btn btn-danger form-control">Delete All Messages</a>#}
+            {{ room_name|json_script:"room-name" }}
+        </div>
+    </div>
+
+
+
+    <script>
+    {% if request.user.is_authenticated %}
+        const roomName = {{ roomName.id }}
+
+        const chatSocket = new WebSocket(
+            'ws://'
+            + window.location.host
+            + '/ws/chat/'
+            + roomName
+            + '/'
+        );
+
+        chatSocket.onmessage = function(e) {
+            const data = JSON.parse(e.data);
+            if(data.message != "")
+            {
+            //document.querySelector('#chat-log').value += (data.message);
+            loadMessage();
+            }
+
+            else{
+
+            //var data = JSON.parse(event.data);
+            console.log(data.user);
+            // NOTE: We escape JavaScript to prevent XSS attacks.
+            var username = data.user;
+            console.log(data.user);
+            if(username.toLowerCase() != "{{ request.user }}")
+            {
+
+            var msg = ``;
+            if(data['status']){
+                msg = ` is online`;
+            }
+            else{
+                msg = ` is offline`;
+            }
+            var node = document.createElement("LI");
+            var textnode = document.createTextNode(username+msg);
+            node.appendChild(textnode);
+            {#document.getElementById("stlist").innerHTML = '';  //deleting old nodes#}
+            $("#stlist").empty();               //using jquery to delete old nodes
+            document.getElementById("stlist").appendChild(node);
+            }
+
+            }
+        };
+
+        if (chatSocket.readyState == WebSocket.OPEN) {
+        chatSocket.onopen();
+        }
+
+        chatSocket.onclose = function(e) {
+            console.error('Chat socket closed unexpectedly');
+        };
+
+        document.querySelector('#chat-message-input').focus();
+        document.querySelector('#chat-message-input').onkeyup = function(e) {
+            if (e.keyCode === 13) {  // enter, return
+                document.querySelector('#chat-message-submit').click();
+            }
+        };
+
+        document.querySelector('#chat-message-submit').onclick = function(e) {
+            const messageInputDom = document.querySelector('#chat-message-input');
+            const message = messageInputDom.value;
+            chatSocket.send(JSON.stringify({
+                'message': message
+            }));
+            messageInputDom.value = '';
+        };
+
+
+        String.prototype.leftJustify = function( length, char ) {
+            var fill = [];
+            while ( fill.length + this.length < length ) {
+            fill[fill.length] = char;
+            }
+            return fill.join('') + this;
+        }
+        String.prototype.rightJustify = function( length, char ) {
+            var fill = [];
+            while ( fill.length + this.length < length ) {
+            fill[fill.length] = char;
+            }
+            return this + fill.join('');
+        }
+
+        function loadMessage() {
+            newDiv = document.getElementById("chat-log");
+            Div = document.getElementById("delete-log");
+            Div.innerHTML = "";
+            newDiv.innerHTML = "";
+            let message = ``;
+            const para = new Array();
+            var i=0;
+            fetch("{% url 'history' roomName.id %}")
+                .then( response => response.json() )
+                .then( data => {
+
+                    for (let msg of data) {
+                        if(msg.username.toLowerCase() == "{{ request.user }}")
+                        {
+                            message = msg.message.leftJustify(100, " ");
+                            var str = "Delete";
+                            para.push(document.createElement("a"));
+
+                            var br = document.createElement("br");
+                            var t = document.createTextNode("delete");      // Create a text node
+
+                            para[i].appendChild(t);
+
+                            para[i].classList.add("btn-danger");
+                            para[i].classList.add("btn-sm");
+                            para[i].appendChild(br);
+                            strID = msg.id.toString();
+                            roomID = {{ roomName.id }}
+                            para[i].id = strID;
+                            para[i].onclick = function () {
+                                console.log(this.id);
+                                chatSocket.send(JSON.stringify({
+                                'message': "",
+                                "id":this.id
+                            }));
+
+                            }
+
+                        }
+                        else{
+                            message = msg.message
+                            var str = "";
+                            para.push(document.createElement("a"));
+                            strID = msg.id.toString();
+                            var br = document.createElement("br");
+                            var t = document.createTextNode("");
+                            para[i].appendChild(br);
+
+                        }
+                        Div.appendChild(para[i]);
+                        newDiv.innerHTML += message;
+                        i += 1;
+                    }
+                })
+
+
+        }
+        loadMessage()
+
+    {% endif %}
+    </script>
+
+{% endblock content %}
