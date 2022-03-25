@@ -13,6 +13,8 @@ import os
 from pathlib import Path
 from decouple import config
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
+from django.core.asgi import get_asgi_application
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Quick-start development settings - unsuitable for production
@@ -157,3 +159,4 @@ TORTOISE_INIT = {
 }
 
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+django_asgi_app = get_asgi_application()
