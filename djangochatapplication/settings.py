@@ -159,4 +159,3 @@ TORTOISE_INIT = {
 }
 
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
-django_asgi_app = get_asgi_application()
