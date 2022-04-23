@@ -24,7 +24,7 @@ Similarly, we can build Chat Groups
 
 -Deployed on Heroku using Daphne, Heroku Postgres
 
--Dcokerised using Docker
+-Containerized using Docker
 ## Tech Stack
 
 [![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
