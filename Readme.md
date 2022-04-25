@@ -1,5 +1,5 @@
 
-# Django Chat Project with Tortoise ORM (SQlite ver)
+# Great Chat | Django Chat Project with Tortoise ORM (SQlite ver)
 
 This project is implementation for the following topics related to technologies used with Django
 
