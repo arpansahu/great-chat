@@ -95,9 +95,8 @@ to check if its running or not
 ```
 --------------------------
 
-Uncomment Channel Layers Setting for Local Machine
+Uncomment Channel Layers Setting for Local Machine on settings.py, line 137 to 144 
 ```bash
-  uncomment line 137 to 144 
    CHANNEL_LAYERS = {
      'default': {
          'BACKEND': 'channels_redis.core.RedisChannelLayer',
@@ -107,9 +106,8 @@ Uncomment Channel Layers Setting for Local Machine
      },
    }
 ```
-Comment Channel Layers Setting for Heroku
+Comment Channel Layers Setting for Heroku on settings.py, line 147 to 154 
 ```bash
-  comment line 147 to 154 
    CHANNEL_LAYERS = {
     "default": {
         "BACKEND": "channels_redis.core.RedisChannelLayer",
