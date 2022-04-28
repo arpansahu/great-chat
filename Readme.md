@@ -152,67 +152,32 @@ Push Heroku App
 
 Configure Heroku App
 ```bash
-  add all the env variables used from app setting page on heroku app dashboard.
+  heroku config:set GITHUB_USERNAME=joesmith
 
 ```
 Configuring Django App for Heroku
+
+Install whitenoise 
 ```
-    install whitenoise : pip install whitenoise 
-    include it in included_apps=[]
-    add whitenoise middleware
-    add: procfile
-    add: 
-        release: python manage.py migrate
-        web: daphne djangochatapplication.asgi:application --port $PORT --bind 0.0.0.0 -v2
-        in procfile
-```
-## Tech Stack
-
-**Client:** HTML, Jinja, CSS, BootStrap, Javascript
-
-**Server:** Django, Django Channels, Daphne, Redis, Heroku
-
-**Database:**Postgres, SQlite
-
-
-## Deployment on Heroku
-
-Installing Heroku Cli from : https://devcenter.heroku.com/articles/heroku-cli
-Create your account in Heroku.
-
-Inside your project directory
-
-Login Heroku CLI
-```bash
-  heroku login
-
+pip install whitenoise 
 ```
 
-Create Heroku App
-
-```bash
-  heroku create [app_name]
-
+Include it in Middlewares.
+```
+MIDDLEWARE = [
+    # ...
+    "django.middleware.security.SecurityMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",
+    # ...
+]
 ```
 
-Push Heroku App
+Create Procfile and include this code snippet in it.
 ```
-    git push heroku master
+release: python manage.py migrate
+web: daphne djangochatapplication.asgi:application --port $PORT --bind 0.0.0.0 -v2
 ```
 
-Configure Heroku App
-```bash
-  add all the env variables used from app setting page on heroku app dashboard.
-
-```
-Configuring Django App for Heroku
-```
-    install whitenoise : pip install whitenoise 
-    include it in included_apps=[]
-    add whitenoise middleware
-    add: procfile
-    add: release-task.sh for running mutilple commands in run: section of procfile
-```
 ## Documentation
 
 [![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
