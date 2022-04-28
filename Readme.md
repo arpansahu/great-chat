@@ -88,11 +88,11 @@ Installing Redis On Local (For ubuntu) for other Os Please refer to their websit
   sudo apt-get update
   sudo apt-get install redis
   sudo systemctl restart redis.service
-  
-  to check if its running or not:
+```
+to check if its running or not
+```
   sudo systemctl status redis
 ```
-
 --------------------------
 
 Uncomment Channel Layers Setting for Local Machine
