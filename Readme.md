@@ -63,7 +63,7 @@ Installing Pre requisites
 
 Create .env File
 ```bash
-  addn variables mentioned in .env.example
+  add variables mentioned in .env.example
 ```
 
 Making Migrations and Migrating them.
