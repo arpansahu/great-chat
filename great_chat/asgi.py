@@ -1,5 +1,5 @@
 """
-ASGI config for djangochatapplication project.
+ASGI config for great_chat project.
 
 It exposes the ASGI callable as a module-level variable named ``application``.
 
@@ -14,7 +14,7 @@ import django
 
 
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'djangochatapplication.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'great_chat.settings')
 django.setup()
 
 from channels.auth import AuthMiddlewareStack

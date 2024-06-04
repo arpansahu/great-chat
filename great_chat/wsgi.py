@@ -1,5 +1,5 @@
 """
-WSGI config for djangochatapplication project.
+WSGI config for great_chat project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 
@@ -11,6 +11,6 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'djangochatapplication.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'great_chat.settings')
 
 application = get_wsgi_application()

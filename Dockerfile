@@ -1,7 +1,14 @@
-FROM python:3.8
-ENV PYTHONUNBUFFERED 1
-RUN mkdir /code
-WORKDIR /code
-COPY requirements.txt /code/
-RUN pip install -r requirements.txt
-COPY . /code/
+FROM python:3.10.7
+
+WORKDIR /app
+
+COPY requirements.txt requirements.txt
+
+COPY . .
+
+RUN pip3 install -r requirements.txt
+
+EXPOSE 8002
+
+CMD python manage.py collectstatic
+CMD gunicorn --bind 0.0.0.0:8002 great_chat.wsgi

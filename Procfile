@@ -1,2 +1,2 @@
 release: python manage.py migrate
-web: daphne djangochatapplication.asgi:application --port $PORT --bind 0.0.0.0 -v2
+web: daphne great_chat.asgi:application --port $PORT --bind 0.0.0.0 -v2
